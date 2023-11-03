@@ -1,0 +1,14 @@
+1) HTML se define como?
+RTA: un lenguaje de marcado que define la estructura de tu contenido
+
+2) CSS se define como?
+RTA: Es el lenguaje de estilos utilizado para describir la presentación de documentos HTML o XML.
+
+3) En que lugar se ejecuta generalmente el código JavaScript
+RTA: Por lo general en el cliente, pero se puede ejecutar en el servidor.
+
+4) Jquery es:
+RTA: Es una biblioteca multiplataforma de JavaScript
+
+5) JavaScript nos permite modificar:
+RTA: La estructura, contenido y presentación de una página web

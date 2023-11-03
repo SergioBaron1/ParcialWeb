@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Formulario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        img{
+            width: 23px;
+            height: 23px;
+        }
+
+        
+        
+
+        #div-table{
+            background-image: url(bandera.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row vh-100 justify-content-center align-items-center">
+            <div class="col-md-6 bg-white p-5 shadow-lg">
+                <div class="mb-4 text-center">Formulario de afiliación</div>
+                <form action="/formulario" method="get">
+
+                    <div class="input-group mb-3">
+                        <input name="nombre" type="text" class="form-control" placeholder="Nombre completo"  aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"><img src="usuario.png"/></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input name="Email" type="text" class="form-control" placeholder="E-mail"  aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"><img src="correo-electronico.png"/></span>
+                        </div>
+                    </div>
+                      
+                    <div class="input-group mb-3">
+                        <input name="Telefono" type="text" class="form-control" placeholder="Telefono"  aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"><img src="telefono.png"/></span>
+                        </div>
+
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="gusto" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button id="boton-gusto" class="btn btn-outline-success" type="button">Gustos</button>
+                        </div>
+                    </div>
+
+                    <div class="container shadow-sm mb-3 p-3" >
+                        <div class="row" >
+                                <div class="col" id="div-table">
+                                    
+                                </div>
+
+                                <div class="col-10">
+                                    <table class="table table-bordered">
+                                        <tbody id="tabla-gustos">
+                                            <tr>
+                                                <th scope="col">Gusto</th>
+                                                <th scope="col">Porcentaje</th>
+                                                <th scope="col">Editar</th>
+                                        
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="text m-3">
+                        Presione "Aceptar" para guardar los cambios o "cancelar" para anularlos.
+                    </div>
+                    <div class="container mb-3" id="botones">
+                        <button type="submit" class="btn btn-outline-success">Aceptar</button>
+                        <button type="reset" class="btn btn-outline-warning">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+   
+
+    <script>
+        var edicionEnCurso=false;
+        $(document).ready(function() {
+            $('#boton-gusto').click(function() {
+                var gusto = $('#gusto').val();
+                if (gusto) {
+                    var fila = "<tr><td>" + gusto + "</td><td></td><td><button class='btn btn-outline-success editar-gusto'>Editar</button></td></tr>";
+                    $("#tabla-gustos").append(fila);
+                    $('#gusto').val('');
+                } else {
+                    $("#formulario").submit();
+                }
+            });
+
+            $(document).on("click", ".editar-gusto", function() {
+                if(edicionEnCurso){
+                    alert("Ya hay una edición en curso. Finaliza la actual antes de editar esta");
+                    
+                }else{
+
+                edicionEnCurso = true;
+                var fila = $(this).closest("tr");
+                var gusto = fila.find("td:first").text();
+                var inputPorcentaje = $("<input>").attr({
+                    "type": "number",
+                    "placeholder": "0"
+                }).addClass("form-control");
+                fila.find("td:eq(1)").html(inputPorcentaje);
+                var botonGuardar = $("<button>").text("Guardar").addClass("btn btn-success guardar-gusto");
+                fila.find("td:eq(2)").html(botonGuardar);
+                }
+            }
+            );
+
+            $(document).on("click", ".guardar-gusto", function() {
+                var fila = $(this).closest("tr");
+                var gusto = fila.find("td:first").text();
+                var porcentaje = fila.find("input").val() + '%';
+                fila.find("td:eq(1)").text(porcentaje);
+                var botonEditar = $("<button>").text("Editar").addClass("btn btn-outline-success editar-gusto");
+                fila.find("td:eq(2)").html(botonEditar);
+                edicionEnCurso= false
+                
+            });
+
+        });
+    </script>
+</body>
+</html>
